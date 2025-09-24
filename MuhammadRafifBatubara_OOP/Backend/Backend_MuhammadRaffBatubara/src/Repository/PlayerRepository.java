@@ -26,7 +26,10 @@ public class PlayerRepository extends BaseRepository<Player, UUID> {
                 .filter(player -> player.getUsername().equals(username))
                 .findFirst();
     }
-
+    public boolean existByUsername(String username) {
+        return allData.stream()
+                .anyMatch(player -> player.getUsername().equals(username));
+    }
     /**
      * Mengembalikan daftar Player dengan highscore tertinggi[cite: 36].
      */
@@ -46,21 +49,15 @@ public class PlayerRepository extends BaseRepository<Player, UUID> {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Mengembalikan semua Player diurutkan berdasarkan total koin[cite: 39].
-     */
-    public List<Player> findAllByOrderByTotalCoinsDesc() {
+    public List<Player> findAllByorderByTotalCoinsDesc(){
         return allData.stream()
                 .sorted((p1, p2) -> Integer.compare(p2.getTotalCoins(), p1.getTotalCoins()))
                 .collect(Collectors.toList());
     }
-
-    /**
-     * Mengembalikan semua Player diurutkan berdasarkan total jarak[cite: 40].
-     */
-    public List<Player> findAllByOrderByTotalDistanceTravelledDesc() {
+    public List<Player> findAllByorderByTotalDistanceTravelledDesc() {
         return allData.stream()
                 .sorted((p1, p2) -> Integer.compare(p2.getTotalDistance(), p1.getTotalDistance()))
                 .collect(Collectors.toList());
     }
+
 }

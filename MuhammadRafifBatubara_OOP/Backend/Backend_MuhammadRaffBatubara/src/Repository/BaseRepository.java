@@ -22,6 +22,11 @@ public abstract class BaseRepository<T, ID> {
     public List<T> findAll() {
         return new ArrayList<>(allData);
     }
+    public void deleteById(ID id) {
+        T entity = dataMap.remove(id); if (entity != null) {
+            allData.remove(entity);
+        }
+    }
 
     // Abstract method untuk menyimpan entitas [cite: 18]
     public abstract void save(T entity);
