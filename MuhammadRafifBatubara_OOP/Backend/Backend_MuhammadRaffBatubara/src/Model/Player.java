@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Player implements ShowDetail {
-    private final String playerId;
+    private UUID playerId;
     private int highScore;
     private int totalCoins;
     private int totalDistance;
@@ -12,7 +12,7 @@ public class Player implements ShowDetail {
     private final LocalDateTime createdAt;
 
     public Player(String username){
-        this.playerId = UUID.randomUUID().toString();
+        this.playerId = UUID.randomUUID();
         this.username = username;
         this.highScore = 0;
         this.totalCoins = 0;
@@ -20,10 +20,29 @@ public class Player implements ShowDetail {
         this.createdAt = LocalDateTime.now();
     }
 
-    public String getPlayerId(){
+    //== Method Getter yang Ditambahkan ==//
+    public String getUsername(){
+        return this.username;
+    }
+
+    public int getHighScore(){
+        return this.highScore;
+    }
+
+    public int getTotalCoins(){
+        return this.totalCoins;
+    }
+
+    public int getTotalDistance(){
+        return this.totalDistance;
+    }
+
+    //== Method Getter yang Sudah Ada ==//
+    public UUID getPlayerId(){
         return playerId;
     }
 
+    //== Method untuk mengubah data ==//
     public void updateHighScore(int newScore){
         if (newScore > this.highScore){
             this.highScore = newScore;
@@ -38,6 +57,7 @@ public class Player implements ShowDetail {
         this.totalDistance += distance;
     }
 
+    @Override
     public void showDetail(){
         System.out.println("Player ID      : " + playerId);
         System.out.println("Username       : " + username);
@@ -45,6 +65,6 @@ public class Player implements ShowDetail {
         System.out.println("Total Coins    : " + totalCoins);
         System.out.println("Total Distance : " + totalDistance);
         System.out.println("Created At     : " + createdAt);
-        System.out.println("\n");
+        System.out.println(); // Memberi jarak untuk output berikutnya
     }
 }
