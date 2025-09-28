@@ -49,7 +49,7 @@ public class PlayerRepository extends BaseRepository<Player, UUID> {
                 .collect(Collectors.toList());
     }
 
-    public List<Player> findAllByorderByTotalCoinsDesc(){
+    public List<Player> findAllByOrderByTotalCoinsDesc(){
         return allData.stream()
                 .sorted((p1, p2) -> Integer.compare(p2.getTotalCoins(), p1.getTotalCoins()))
                 .collect(Collectors.toList());

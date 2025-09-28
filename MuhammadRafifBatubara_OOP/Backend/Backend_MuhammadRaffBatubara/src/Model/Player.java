@@ -20,7 +20,7 @@ public class Player implements ShowDetail {
         this.createdAt = LocalDateTime.now();
     }
 
-    //== Method Getter yang Ditambahkan ==//
+    //== Getter ==//
     public String getUsername(){
         return this.username;
     }
@@ -37,12 +37,32 @@ public class Player implements ShowDetail {
         return this.totalDistance;
     }
 
-    //== Method Getter yang Sudah Ada ==//
     public UUID getPlayerId(){
         return playerId;
     }
 
-    //== Method untuk mengubah data ==//
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    //== Setter (dibutuhkan PlayerService) ==//
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
+    }
+
+    public void setTotalCoins(int totalCoins) {
+        this.totalCoins = totalCoins;
+    }
+
+    public void setTotalDistance(int totalDistance) {
+        this.totalDistance = totalDistance;
+    }
+
+    //== Method untuk mengubah data secara bertahap ==//
     public void updateHighScore(int newScore){
         if (newScore > this.highScore){
             this.highScore = newScore;
@@ -65,6 +85,6 @@ public class Player implements ShowDetail {
         System.out.println("Total Coins    : " + totalCoins);
         System.out.println("Total Distance : " + totalDistance);
         System.out.println("Created At     : " + createdAt);
-        System.out.println(); // Memberi jarak untuk output berikutnya
+        System.out.println();
     }
 }
