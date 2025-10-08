@@ -20,10 +20,10 @@ public class Score{
     @JoinColumn(name = "player_id", insertable = false, updatable = false)
     private Player player;
 
-    @Column(nullable = false)
-    private Integer value;
+    @Column(name = "score_value", nullable = false)
+    private Integer Value;
 
-    @Column(name = "coions_collected")
+    @Column(name = "coins_collected")
     private Integer coinsCollected = 0;
 
     @Column(name = "distance_travelled")
@@ -33,18 +33,15 @@ public class Score{
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    //default constructor
     public Score(){}
 
-    //constructor with required fields
-    public Score(UUID playerId, Integer value, Integer coinsCollected, Integer distanceTravelled){
+    public Score(UUID playerId, Integer Value, Integer coinsCollected, Integer distanceTravelled){
         this.playerId = playerId;
-        this.value = value;
+        this.Value = Value;
         this.coinsCollected = coinsCollected;
         this.distanceTravelled = distanceTravelled;
     }
 
-    //getter and setter
 
     public UUID getScoreId() {
         return scoreId;
@@ -71,11 +68,11 @@ public class Score{
     }
 
     public Integer getValue() {
-        return value;
+        return Value;
     }
 
-    public void setValue(Integer value) {
-        this.value = value;
+    public void setValue(Integer scoreValue) {
+        this.Value = Value;
     }
 
     public Integer getCoinsCollected() {
@@ -102,8 +99,3 @@ public class Score{
         this.createdAt = createdAt;
     }
 }
-
-
-
-
-

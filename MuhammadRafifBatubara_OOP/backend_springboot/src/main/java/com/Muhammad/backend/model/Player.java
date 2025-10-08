@@ -18,7 +18,7 @@ public class Player {
     private String username;
 
     @Column(name = "highscore")
-    private Integer highscore = 0;
+    private Integer highScore = 0;
 
     @Column(name = "total_coins")
     private Integer totalCoins = 0;
@@ -55,12 +55,12 @@ public class Player {
         this.username = username;
     }
 
-    public Integer getHighscore() {
-        return highscore;
+    public Integer getHighScore() {
+        return highScore;
     }
 
-    public void setHighscore(Integer highscore) {
-        this.highscore = highscore;
+    public void setHighScore(Integer highscore) {
+        this.highScore = highscore;
     }
 
     public Integer getTotalCoins() {
@@ -89,8 +89,8 @@ public class Player {
 
     //Business Methods
     public void updateHighScore(Integer newScore){
-        if (newScore > this.highscore){
-            this.highscore = newScore;
+        if (newScore > this.highScore){
+            this.highScore = newScore;
         }
     }
 
