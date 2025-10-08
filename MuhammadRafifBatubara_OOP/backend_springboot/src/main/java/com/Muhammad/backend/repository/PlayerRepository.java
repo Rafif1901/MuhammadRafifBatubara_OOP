@@ -11,15 +11,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface PlayerRepository  extends JpaRepository<Player, UUID> {
-    Optional<Player> findByUsername(String username);
-    boolean existsByUsername (String username);
+public interface PlayerRepository extends JpaRepository<Player, UUID> {
 
-    @Query("SELECT p FROM Player p ORDER BY p.highscore DESC")
+    Optional<Player> findByUsername(String username);
+
+    boolean existsByUsername(String username);
+
+    @Query(value = "SELECT * FROM players ORDER BY high_score DESC LIMIT :limit", nativeQuery = true)
     List<Player> findTopPlayerByHighScore(@Param("limit") int limit);
 
     List<Player> findByHighScoreGreaterThan(Integer minScore);
+
     List<Player> findAllByOrderByTotalCoinsDesc();
 
-    List<Player> findByOrderByTotalDistanceDesc();
+    List<Player> findAllByOrderByTotalDistanceTravelledDesc();
 }

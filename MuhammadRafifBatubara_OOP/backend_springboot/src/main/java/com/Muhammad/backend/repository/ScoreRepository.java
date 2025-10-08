@@ -14,18 +14,16 @@ public interface ScoreRepository extends JpaRepository<Score, UUID> {
 
     List<Score> findByPlayerId(UUID playerId);
 
-    List<Score> findByPlayerIdOrderByScoreValueDesc(UUID playerId);
+    List<Score> findByPlayerIdOrderByValueDesc(UUID playerId);
 
     List<Score> findByValueGreaterThan(Integer minValue);
 
     List<Score> findAllByOrderByCreatedAtDesc();
 
-    List<Score> findByPlayerIdOrderByValueDesc(UUID playerId);
-
-    @Query("SELECT s FROM Score s ORDER BY s.scoreValue DESC")
+    @Query(value = "SELECT * FROM score ORDER BY value DESC LIMIT :limit", nativeQuery = true)
     List<Score> findTopScores(@Param("limit") int limit);
 
-    @Query("SELECT s FROM Score s WHERE s.playerId = :playerId ORDER BY s.scoreValue DESC")
+    @Query("SELECT s FROM Score s WHERE s.playerId = :playerId ORDER BY s.value DESC")
     List<Score> findHighestScoreByPlayerId(@Param("playerId") UUID playerId);
 
     @Query("SELECT SUM(s.coinsCollected) FROM Score s WHERE s.playerId = :playerId")
@@ -33,6 +31,4 @@ public interface ScoreRepository extends JpaRepository<Score, UUID> {
 
     @Query("SELECT SUM(s.distanceTravelled) FROM Score s WHERE s.playerId = :playerId")
     Integer getTotalDistanceByPlayerId(@Param("playerId") UUID playerId);
-
-
 }

@@ -109,6 +109,7 @@ public class ScoreService {
         }
     }
 
+    @Transactional
     public Score updateScore(UUID scoreId, Score updatedScore){
         Score existingScore = scoreRepository.findById(scoreId)
                 .orElseThrow(() -> new RuntimeException("Score not found"));
@@ -127,14 +128,15 @@ public class ScoreService {
 
     public void deleteScore(UUID scoreId){
         if(!scoreRepository.existsById(scoreId)){
-            throw new RuntimeException();
+            throw new RuntimeException("Score not found with ID: " + scoreId);
         }
         scoreRepository.deleteById(scoreId);
     }
 
+    @Transactional
     public void deleteScoresByPlayerId(UUID playerId){
         List<Score> scores = scoreRepository.findByPlayerId(playerId);
-        scoreRepository.deleteAll();
+        scoreRepository.deleteAll(scores);
     }
 
 }

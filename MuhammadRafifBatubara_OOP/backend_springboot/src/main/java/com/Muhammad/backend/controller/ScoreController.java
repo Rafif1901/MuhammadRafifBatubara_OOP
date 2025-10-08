@@ -1,17 +1,13 @@
 package com.Muhammad.backend.controller;
 
 import com.Muhammad.backend.model.Score;
-import com.Muhammad.backend.repository.ScoreRepository;
 import com.Muhammad.backend.service.ScoreService;
-import com.Muhammad.backend.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/scores")
@@ -41,7 +37,7 @@ public class ScoreController {
     public ResponseEntity<?> getScoreById(@PathVariable UUID scoreId){
         Optional<Score> score =  scoreService.getScoreById(scoreId);
         if(score.isPresent()){
-            return ResponseEntity.ok(score);
+            return ResponseEntity.ok(score.get());
         }
         else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Score not found with id: " + scoreId);
@@ -72,8 +68,58 @@ public class ScoreController {
 
     @GetMapping("/player/{playerId}")
     public ResponseEntity<List<Score>> getScoresByPlayerId(@PathVariable UUID playerId){
-        return ResponseEntity.ok(scoreService.getHighestScoreByPlayerId(playerId));
+        return ResponseEntity.ok(scoreService.getScoresByPlayerId(playerId));
     }
 
+    @GetMapping("/player/{playerId}/ordered")
+    public ResponseEntity<List<Score>> getScoresByPlayerIdOrdered(@PathVariable UUID playerId){
+        return ResponseEntity.ok(scoreService.getScoresByPlayerIdOrderByValue(playerId));
+    }
 
+    @GetMapping("/leaderboard")
+    public ResponseEntity<List<Score>> getLeaderboard(@RequestParam(defaultValue = "10")int limit){
+        List<Score> leaderboard = scoreService.getLeaderboard(limit);
+        return ResponseEntity.ok(leaderboard);
+    }
+
+    @GetMapping("/player/{playerId}/highest")
+    public ResponseEntity<?> getHighestScoreByPlayerId(@PathVariable UUID playerId){
+        Optional<Score> highest = scoreService.getHighestScoreByPlayerId(playerId);
+        if(highest.isPresent()){
+            return ResponseEntity.ok(highest.get());
+            }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No scores found..");
+        }
+    }
+
+    @GetMapping("/above/{minValue}")
+    public ResponseEntity<List<Score>> getScoresAboveValue(@PathVariable Integer minValue){
+        return ResponseEntity.ok(scoreService.getScoresAboveValue(minValue));
+    }
+
+    @GetMapping("/recent")
+    public ResponseEntity<List<Score>> getRecentScores(){
+        return ResponseEntity.ok(scoreService.getRecentScores());
+    }
+
+    @GetMapping("/player/{playerId}/total-coins")
+    public ResponseEntity<?> getTotalCoinsByPlayerId(@PathVariable UUID playerId){
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalCoins", scoreService.getTotalCoinsByPlayerId(playerId));
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/player/{playerId}/total-distance")
+    public ResponseEntity<?> getTotalDistanceByPlayerId(@PathVariable UUID playerId){
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalDistance", scoreService.getTotalDistanceByPlayerId(playerId));
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/player/{playerId}")
+    public ResponseEntity<?> deleteScoresByPlayerId(@PathVariable UUID playerId){
+        scoreService.deleteScoresByPlayerId(playerId);
+        return ResponseEntity.ok("All Scores deleted successfully");
+    }
 }

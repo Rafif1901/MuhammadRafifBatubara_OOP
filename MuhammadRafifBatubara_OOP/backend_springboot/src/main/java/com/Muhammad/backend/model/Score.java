@@ -20,8 +20,8 @@ public class Score{
     @JoinColumn(name = "player_id", insertable = false, updatable = false)
     private Player player;
 
-    @Column(name = "score_value", nullable = false)
-    private Integer Value;
+    @Column(name = "value", nullable = false)
+    private Integer value;
 
     @Column(name = "coins_collected")
     private Integer coinsCollected = 0;
@@ -35,9 +35,9 @@ public class Score{
 
     public Score(){}
 
-    public Score(UUID playerId, Integer Value, Integer coinsCollected, Integer distanceTravelled){
+    public Score(UUID playerId, Integer value, Integer coinsCollected, Integer distanceTravelled){
         this.playerId = playerId;
-        this.Value = Value;
+        this.value = value;
         this.coinsCollected = coinsCollected;
         this.distanceTravelled = distanceTravelled;
     }
@@ -68,11 +68,11 @@ public class Score{
     }
 
     public Integer getValue() {
-        return Value;
+        return value;
     }
 
-    public void setValue(Integer scoreValue) {
-        this.Value = Value;
+    public void setValue(Integer value) {
+        this.value = value;
     }
 
     public Integer getCoinsCollected() {

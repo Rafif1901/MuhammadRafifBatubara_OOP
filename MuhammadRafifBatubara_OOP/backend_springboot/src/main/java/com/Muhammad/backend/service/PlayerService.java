@@ -56,8 +56,8 @@ public class PlayerService {
             existingPlayer.setTotalCoins(updatedPlayer.getTotalCoins());
         }
 
-        if (updatedPlayer.getTotalDistance() != null) {
-            existingPlayer.setTotalDistance(updatedPlayer.getTotalDistance());
+        if (updatedPlayer.getTotalDistanceTravelled() != null) {
+            existingPlayer.setTotalDistanceTravelled(updatedPlayer.getTotalDistanceTravelled());
         }
 
         return playerRepository.save(existingPlayer);
@@ -100,7 +100,7 @@ public class PlayerService {
     }
 
     public List<Player> getLeaderboardByTotalDistance() {
-        return playerRepository.findByOrderByTotalDistanceDesc();
+        return playerRepository.findAllByOrderByTotalDistanceTravelledDesc();
     }
 
     public boolean isUsernameExists(String username) {
