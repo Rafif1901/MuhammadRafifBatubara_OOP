@@ -48,7 +48,7 @@ public class Player {
         if(velocity.y > maxVerticalSpeed){
             velocity.y = maxVerticalSpeed;
         }
-        if(velocity.y > -maxVerticalSpeed){
+        if(velocity.y < -maxVerticalSpeed){
             velocity.y = -maxVerticalSpeed;
         }
     }
@@ -93,7 +93,7 @@ public class Player {
         return collider;
     }
 
-    public float getDistancetraveled(){
+    public float getDistanceTraveled(){
         return distanceTraveled / 10;
     }
 }
