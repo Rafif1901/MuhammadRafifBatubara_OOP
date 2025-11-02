@@ -1,65 +1,77 @@
 package com.rafif.frontend;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Main extends ApplicationAdapter {
 
     private ShapeRenderer shapeRenderer;
-    private Player player;
-    private Ground ground;
-    private GameManager gameManager;
-    private OrthographicCamera camera;
-    private float cameraOffset = 0.2f;
+    private ShapeFactory shapeFactory;
+    private ShapePool shapePool;
+    private Random random;
+    private ArrayList<Shape> activeShapes;
 
     @Override
     public void create(){
         shapeRenderer = new ShapeRenderer();
-        gameManager = GameManager.getInstance();
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false);
-        player = new Player(new Vector2(100, Gdx.graphics.getHeight() / 2f));
-        ground = new Ground();
-        gameManager.startGame();
+        shapePool = new ShapePool();
+        shapeFactory = new ShapeFactory(shapePool);
+        activeShapes = new ArrayList<>();
+        random = new Random();
+
+        System.out.println("Press 1=Circle, 2=Square, R=Release");
     }
 
     @Override
     public void render(){
-        float delta = Gdx.graphics.getDeltaTime();
-        update(delta);
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        shapeRenderer.setProjectionMatrix(camera.combined);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+            createShape("Circle");
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
+            createShape("Square");
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+            releaseAllShapes();
+        }
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        ground.renderShape(shapeRenderer);
-        player.renderShape(shapeRenderer);
+
+        for(Shape shape : activeShapes){
+            shape.render(shapeRenderer);
+        }
+
         shapeRenderer.end();
     }
 
-    private void update(float delta){
-        boolean isFlying = Gdx.input.isKeyPressed(Input.Keys.SPACE);
-        player.update(delta, isFlying);
-        updateCamera(delta);
-        ground.update(camera.position.x);
+    private void createShape(String type){
+        if(activeShapes.size() >= 3){
+            System.out.println("Maximum 3 shapes active!");
+            return;
+        }
 
-        float ceilingY = camera.position.y + Gdx.graphics.getHeight() / 2f;
-        player.checkBoundaries(ground, ceilingY);
+        Shape shape = shapeFactory.createShape(type);
 
-        int currentDistance = (int) player.getDistanceTraveled();
-        if(currentDistance > gameManager.getScore()){
-            gameManager.setScore(currentDistance);
+        if(shape != null){
+            float x = random.nextFloat() * (Gdx.graphics.getWidth() - 100) + 50;
+            float y = random.nextFloat() * (Gdx.graphics.getHeight() - 100) + 50;
+            shape.setPosition(x, y);
+
+            activeShapes.add(shape);
         }
     }
 
-    private void updateCamera(float delta){
-        float cameraFocus = player.getPosition().x + (Gdx.graphics.getWidth() * cameraOffset);
-        camera.position.x += (cameraFocus - camera.position.x) * 0.1f;
-        camera.update();
+    private void releaseAllShapes(){
+        for(Shape shape : activeShapes){
+            shapePool.release(shape);
+        }
+        activeShapes.clear();
+        System.out.println("All shapes returned to pool");
     }
 
     @Override
