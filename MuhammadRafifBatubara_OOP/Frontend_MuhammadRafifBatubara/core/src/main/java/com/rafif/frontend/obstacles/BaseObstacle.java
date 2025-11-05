@@ -52,11 +52,15 @@ public abstract class BaseObstacle {
     protected abstract void updateCollider();
     protected abstract void drawShape(ShapeRenderer shapeRenderer);
     protected abstract float getRenderWidth();
-    protected abstract float getRenderHeight();
 
     public void setActive(boolean active){
         this.active = active;
         this.position.set(position.x, position.y);
+        updateCollider();
+    }
+
+    public void setPosition(float x, float y){
+        this.position.set(x, y);
         updateCollider();
     }
 

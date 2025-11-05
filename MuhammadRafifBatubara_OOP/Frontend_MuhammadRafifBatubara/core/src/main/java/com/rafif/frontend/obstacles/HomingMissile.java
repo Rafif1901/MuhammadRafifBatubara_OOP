@@ -22,11 +22,15 @@ public class HomingMissile extends BaseObstacle{
         velocity.set(0, 0);
     }
 
+    public void setTarget(Player target){
+        this.target = target;
+    }
+
     public boolean isTargetingPlayer(){
         if(target == null){
             return false;
         }
-        float targetCenter = target.getPosition().x + (width / 2f);
+        float targetCenter = target.getPosition().x + (target.getWidth() / 2f);
         float missileCenter = this.position.x + (this.width / 2f);
         if(targetCenter > missileCenter){
             return true;
@@ -39,7 +43,7 @@ public class HomingMissile extends BaseObstacle{
             if(isTargetingPlayer()){
                 velocity.set(target.getPosition()).sub(position).nor().scl (speed);
                 position.x += velocity.x * delta;
-                position.y =+ velocity.y * delta;
+                position.y += velocity.y * delta;
                 updateCollider();
             }
         }
@@ -60,7 +64,6 @@ public class HomingMissile extends BaseObstacle{
         return width;
     }
 
-    @Override
     protected  float getRenderHeight(){
         return height;
     }

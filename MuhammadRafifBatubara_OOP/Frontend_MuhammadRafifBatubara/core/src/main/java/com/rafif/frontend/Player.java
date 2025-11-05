@@ -16,21 +16,32 @@ public class Player {
     private float height = 64f;
     private float baseSpeed = 300f;
     private float distanceTraveled = 0f;
+    private boolean isDead;
+    private Vector2 startPosition;
 
     public Player(Vector2 startPosition){
-        position = startPosition;
-        velocity = new Vector2(baseSpeed, 0);
-        collider = new Rectangle(position.x, position.y, width, height);
+        this.position = new Vector2(startPosition);
+        this.velocity = new Vector2(baseSpeed, 0);
+        this.collider = new Rectangle(position.x, position.y, width, height);
+        this.startPosition = new Vector2(startPosition);
+        this.isDead = false;
     }
 
+    public boolean isDead() {
+        return isDead;
+    }
+
+
     public void update(float delta, boolean isFlying){
-        updateDistanceAndSpeed(delta);
-        updatePosition(delta);
-        applyGravity(delta);
-        if(isFlying){
-            fly(delta);
+        if(isDead == false){
+            updateDistanceAndSpeed(delta);
+            updatePosition(delta);
+            applyGravity(delta);
+            if(isFlying){
+                fly(delta);
+            }
+            updateCollider();
         }
-        updateCollider();
     }
 
     private void updateDistanceAndSpeed(float delta){
@@ -48,7 +59,7 @@ public class Player {
         if(velocity.y > maxVerticalSpeed){
             velocity.y = maxVerticalSpeed;
         }
-        if(velocity.y > -maxVerticalSpeed){
+        if(velocity.y < -maxVerticalSpeed){
             velocity.y = -maxVerticalSpeed;
         }
     }
@@ -77,6 +88,18 @@ public class Player {
         shapeRenderer.rect(position.x, position.y, width, height);
     }
 
+    public void die(){
+        isDead = true;
+        velocity.set(0, 0);
+    }
+
+    public void reset(){
+        isDead = false;
+        position.set(startPosition);
+        this.velocity.set(baseSpeed, 0);
+        this.distanceTraveled = 0f;
+    }
+
     public Vector2 getPosition(){
         return position;
     }
@@ -95,5 +118,9 @@ public class Player {
 
     public float getDistanceTraveled(){
         return distanceTraveled / 10;
+    }
+
+    public boolean getIsDead(){
+        return isDead;
     }
 }
