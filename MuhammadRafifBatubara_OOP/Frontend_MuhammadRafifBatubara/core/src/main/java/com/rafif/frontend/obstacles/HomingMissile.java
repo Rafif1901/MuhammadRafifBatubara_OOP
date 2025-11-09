@@ -32,7 +32,7 @@ public class HomingMissile extends BaseObstacle{
         }
         float targetCenter = target.getPosition().x + (target.getWidth() / 2f);
         float missileCenter = this.position.x + (this.width / 2f);
-        if(targetCenter > missileCenter){
+        if(targetCenter < missileCenter){
             return true;
         }
         return false;
@@ -62,9 +62,5 @@ public class HomingMissile extends BaseObstacle{
     @Override
     protected float getRenderWidth(){
         return width;
-    }
-
-    protected  float getRenderHeight(){
-        return height;
     }
 }

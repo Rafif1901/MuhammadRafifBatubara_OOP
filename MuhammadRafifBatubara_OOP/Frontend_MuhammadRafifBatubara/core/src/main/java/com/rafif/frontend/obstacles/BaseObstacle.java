@@ -67,5 +67,4 @@ public abstract class BaseObstacle {
     public Vector2 getPosition(){
         return position;
     }
-
 }
