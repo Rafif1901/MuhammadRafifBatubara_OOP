@@ -1,4 +1,4 @@
-package com.tp9.frontend;
+package com.rafif.frontend.commands;
 
 public interface Command {
     abstract void execute();

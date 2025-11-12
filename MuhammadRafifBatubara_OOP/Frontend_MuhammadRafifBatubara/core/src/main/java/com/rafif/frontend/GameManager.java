@@ -1,13 +1,15 @@
 package com.rafif.frontend;
 
+import com.rafif.frontend.observers.ScoreManager;
+
 public class GameManager {
 
     private static GameManager instance;
-    private int score;
+    private ScoreManager scoreManager;
     private boolean gameActive;
 
     private GameManager(){
-        this.score = 0;
+        this.scoreManager = new ScoreManager();
         this.gameActive = false;
     }
 
@@ -19,18 +21,18 @@ public class GameManager {
     }
 
     public void startGame(){
-        score = 0;
+        scoreManager.setScore(0);
         gameActive = true;
         System.out.println("Game Started!");
     }
 
     public void setScore(int newScore){
         if(gameActive == true){
-            score = newScore;
+            scoreManager.setScore(newScore);
         }
     }
 
     public int getScore(){
-        return score;
+        return scoreManager.getScore();
     }
 }

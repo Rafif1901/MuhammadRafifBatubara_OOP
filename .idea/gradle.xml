@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/MuhammadRafifBatubara_OOP/Backend/backend" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/MuhammadRafifBatubara_OOP/Backend/backend" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/MuhammadRafifBatubara_OOP/Frontend_MuhammadRafifBatubara" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/MuhammadRafifBatubara_OOP/Frontend_MuhammadRafifBatubara" />
+            <option value="$PROJECT_DIR$/MuhammadRafifBatubara_OOP/Frontend_MuhammadRafifBatubara/core" />
+            <option value="$PROJECT_DIR$/MuhammadRafifBatubara_OOP/Frontend_MuhammadRafifBatubara/lwjgl3" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/MuhammadRafifBatubara_OOP/backend_springboot" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/MuhammadRafifBatubara_OOP/backend_springboot" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

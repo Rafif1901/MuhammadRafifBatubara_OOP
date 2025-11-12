@@ -1,5 +1,6 @@
 package com.rafif.frontend;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -37,9 +38,6 @@ public class Player {
             updateDistanceAndSpeed(delta);
             updatePosition(delta);
             applyGravity(delta);
-            if(isFlying){
-                fly(delta);
-            }
             updateCollider();
         }
     }
@@ -64,8 +62,8 @@ public class Player {
         }
     }
 
-    private void fly(float delta){
-        velocity.y += force * delta;
+    public void fly(){
+        velocity.y += force * Gdx.graphics.getDeltaTime();
     }
 
     private void updateCollider(){
