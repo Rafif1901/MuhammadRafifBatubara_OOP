@@ -1,5 +1,6 @@
 package com.rafif.frontend;
 
+import com.rafif.frontend.observers.Observer;
 import com.rafif.frontend.observers.ScoreManager;
 
 public class GameManager {
@@ -34,5 +35,13 @@ public class GameManager {
 
     public int getScore(){
         return scoreManager.getScore();
+    }
+
+    public void addObserver(Observer observer){
+        scoreManager.addObserver(observer);
+    }
+
+    public void removeObserver(Observer observer){
+        scoreManager.removeObserver(observer);
     }
 }

@@ -12,12 +12,14 @@ public class Background {
     private float currentCameraX = 0f;
 
     public Background(){
-        this.backgroundTexture = new Texture(Gdx.files.internal("backgroung.png"));
+        this.backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         this.backgroundRegion = new TextureRegion(backgroundTexture);
+        this.width = 2688f;
+        this.height = 1536f;
     }
 
     public void update(float cameraX){
-        float currentCameraX = cameraX;
+        this.currentCameraX = cameraX;
     }
 
     public void render(SpriteBatch batch){
@@ -33,7 +35,7 @@ public class Background {
         float startX = (float)Math.floor(cameraLeftEdge / scaledWidth) * scaledWidth;
         float cameraRightEdge = currentCameraX + (screenWidth / 2f);
 
-        for(float x = startX; x < cameraRightEdge; x =+ scaledHeight){
+        for(float x = startX; x < cameraRightEdge; x += scaledWidth){
             batch.draw(backgroundRegion, x, 0, scaledWidth, scaledHeight);
         }
     }
