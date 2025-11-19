@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class HardDifficultyStrategy implements DifficultyStrategy{
     @Override
-    public Map<String, Integer> getObstacleWeight(){
+    public Map<String, Integer> getObstacleWeights(){
         Map<String, Integer> weights = new HashMap<>();
         weights.put("VerticalLaser", 2);
         weights.put("HorizontalLaser", 2);
