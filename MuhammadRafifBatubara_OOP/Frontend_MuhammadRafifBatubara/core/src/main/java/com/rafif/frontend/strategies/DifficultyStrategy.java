@@ -1,0 +1,10 @@
+package com.rafif.frontend.strategies;
+
+import java.util.Map;
+
+public interface DifficultyStrategy {
+    Map<String, Integer> getObstacleWeight();
+    float getSpawnInterval();
+    int getDensity();
+    float getMinGap();
+}

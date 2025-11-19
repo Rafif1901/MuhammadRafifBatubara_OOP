@@ -51,4 +51,3 @@ public class VerticalLaserCreator implements ObstacleFactory.ObstacleCreator {
         return "VerticalLaser";
     }
 }
-

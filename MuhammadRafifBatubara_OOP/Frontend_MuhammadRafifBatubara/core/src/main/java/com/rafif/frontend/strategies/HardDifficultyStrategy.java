@@ -1,0 +1,30 @@
+package com.rafif.frontend.strategies;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class HardDifficultyStrategy implements DifficultyStrategy{
+    @Override
+    public Map<String, Integer> getObstacleWeight(){
+        Map<String, Integer> weights = new HashMap<>();
+        weights.put("VerticalLaser", 2);
+        weights.put("HorizontalLaser", 2);
+        weights.put("HomingMissile", 4);
+        return weights;
+    }
+
+    @Override
+    public float getSpawnInterval(){
+        return 0.8f;
+    }
+
+    @Override
+    public int getDensity(){
+        return 3;
+    }
+
+    @Override
+    public float getMinGap(){
+        return 200f;
+    }
+}
