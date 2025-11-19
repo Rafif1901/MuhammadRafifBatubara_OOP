@@ -75,7 +75,7 @@ public class Player {
             position.y = ground.getTopY();
             velocity.y = 0;
         }
-        if(position.y > ceilingY){
+        if(position.y + height > ceilingY){
             position.y = ceilingY - height;
             velocity.y = 0;
         }
