@@ -75,6 +75,10 @@ public class GameManager {
         });
     }
 
+    public void addCoin(){
+        coinsCollected++;
+        Gdx.app.log("GameManager", "COIN COLLECTED! Total: " + coinsCollected);
+    }
     public void setScore(int distance){
         if(gameActive == true){
             scoreManager.setScore(distance);
@@ -93,4 +97,7 @@ public class GameManager {
         scoreManager.removeObserver(observer);
     }
 
+    public int getCoins(){
+        return coinsCollected;
+    }
 }
