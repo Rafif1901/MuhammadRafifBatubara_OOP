@@ -17,6 +17,7 @@ public class CoinPool extends ObjectPool<Coin>{
     public Coin obtain(float x, float y){
         Coin coin = super.obtain();
         coin.getPosition().set(x, y);
+        coin.resetAnimation();
         coin.setActive(true);
         return coin;
     }

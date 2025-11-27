@@ -62,7 +62,7 @@ public class GameManager {
         }
         int distance = scoreManager.getScore();
         int totalScore = distance + coinsCollected * 10;
-        Gdx.app.log("GameManager", "Submitting Score... Dist" + distance + "Coins " + coinsCollected);
+        Gdx.app.log("GameManager", "Submitting Score... Dist: " + distance + " Coins: " + coinsCollected);
         backendService.submitScore(currentPlayerId, totalScore, coinsCollected, distance, new BackendService.RequestCallback() {
             @Override
             public void onSuccess(String response) {

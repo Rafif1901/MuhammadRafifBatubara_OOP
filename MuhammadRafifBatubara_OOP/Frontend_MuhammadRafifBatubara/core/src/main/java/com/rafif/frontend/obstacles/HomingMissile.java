@@ -1,5 +1,9 @@
 package com.rafif.frontend.obstacles;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -11,10 +15,15 @@ public class HomingMissile extends BaseObstacle{
     private float speed = 200f;
     private float width = 40f;
     private float height = 20f;
+    private TextureRegion texture;
+    private float rotation = 0f;
 
     public HomingMissile(Vector2 startPosition){
         super(startPosition, 0);
         this.velocity = new Vector2();
+        this.rotation = 0f;
+        Texture img = new Texture(Gdx.files.internal("missile.png"));
+        this.texture = new TextureRegion(img);
     }
 
     public void initialize(Vector2 startPosition, int length){
@@ -27,15 +36,7 @@ public class HomingMissile extends BaseObstacle{
     }
 
     public boolean isTargetingPlayer(){
-        if(target == null){
-            return false;
-        }
-        float targetCenter = target.getPosition().x + (target.getWidth() / 2f);
-        float missileCenter = this.position.x + (this.width / 2f);
-        if(targetCenter < missileCenter){
-            return true;
-        }
-        return false;
+        return (target.getPosition().x + target.getWidth()/2f) <= (position.x + width/2f);
     }
 
     public void update(float delta){
@@ -62,5 +63,12 @@ public class HomingMissile extends BaseObstacle{
     @Override
     protected float getRenderWidth(){
         return width;
+    }
+
+    public void render(SpriteBatch batch){
+        if(!active){
+            return;
+        }
+        batch.draw(texture, position.x, position.y, width/2, height/2, width, height, 1, 1, rotation);
     }
 }

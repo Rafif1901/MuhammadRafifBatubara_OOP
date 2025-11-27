@@ -10,7 +10,7 @@ public class Coin {
     private float radius = 15f;
     private boolean active;
     private float bobOffset;
-    private float bobSpeed;
+    private float bobSpeed = 5f;
 
     public Coin(Vector2 startPosition){
         this.position = startPosition;
@@ -21,7 +21,7 @@ public class Coin {
 
     public void update(float delta){
         bobOffset += bobSpeed * delta;
-        float visualY = position.y + (float)(Math.sin(bobOffset) * 5f);
+        float visualY = position.y + (float)(Math.sin(bobOffset) * 20f);
         collider.setPosition(position.x, visualY);
     }
 
@@ -29,7 +29,7 @@ public class Coin {
         if(!active){
             return;
         }
-        float drawY = position.y + (float)(Math.sin(bobOffset) * 5f);
+        float drawY = position.y + (float)(Math.sin(bobOffset) * 20f);
         shapeRenderer.setColor(1f, 1f, 0f, 1f);
         shapeRenderer.circle(position.x, drawY, radius);
     }
@@ -38,11 +38,20 @@ public class Coin {
         return active && collider.overlaps(playerCollider);
     }
 
+    public boolean isOffScreenCamera(float cameraLeft){
+        return getPosition().x + radius < cameraLeft;
+    }
+
     public Vector2 getPosition(){
         return position;
     }
 
+
     public void setActive(boolean active){
         this.active = active;
+    }
+
+    public void resetAnimation(){
+        this.bobOffset = 0f;
     }
 }

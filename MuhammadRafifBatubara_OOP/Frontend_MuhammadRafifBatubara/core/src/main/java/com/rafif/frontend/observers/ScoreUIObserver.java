@@ -20,12 +20,11 @@ public class ScoreUIObserver implements  Observer{
         Gdx.app.log("ScoreUIObserver", "Score" + score);
     }
 
-    public void render(int score){
+    public void render(int score, int coins){
         batch.begin();
 
-        float topMargin = 10f;
-        float leftMargin = 10f;
-        font.draw(batch, "Score" + score, leftMargin, Gdx.graphics.getHeight() - topMargin);
+        font.draw(batch, "Distance: " + score + " m", 20, Gdx.graphics.getHeight() - 20);
+        font.draw(batch, "Coins: " + coins, 20, Gdx.graphics.getHeight() - 50);
 
         batch.end();
     }

@@ -8,21 +8,11 @@ import java.util.List;
 import java.util.Random;
 
 public class CoinFactory {
-    private CoinPool coinPool;
-    private Random random;
+    public final CoinPool coinPool;
     private final static float RADIUS_CIRCLE = 15f;
 
-    public void createCoinPattern(float spawnX, float groundTopY){
-        float ceilingY = Gdx.graphics.getHeight();
-        float minY = groundTopY + RADIUS_CIRCLE;
-        float maxY = ceilingY - RADIUS_CIRCLE;
-        float spawnY = groundTopY + random.nextFloat() * (maxY - minY);
-        if(random.nextFloat() <= 0.3){
-            for(int i = 0; i < 3; i++){
-                float currentX = spawnX + (i * 40);
-                coinPool.obtain(currentX, spawnY);
-            }
-        }
+    public CoinFactory(){
+        this.coinPool = new CoinPool();
     }
 
     public List<Coin> getActiveCoins(){
